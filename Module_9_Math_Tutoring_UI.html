@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 9 | Math Studio</title>
+<style>
+:root{--forest:#17472f;--green:#398a5a;--green-2:#287448;--mint:#e8f3ea;--mint-2:#f3f9f4;--paper:#fff;--ink:#24382c;--muted:#667a6c;--line:#d6e4d9;--gold:#d8a845;--shadow:0 8px 24px rgba(23,71,47,.07);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5faf6;color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #9ccca9;outline-offset:2px}
+.app{min-height:100vh;display:grid;grid-template-columns:250px minmax(0,1fr)}
+.sidebar{background:var(--paper);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:11px;padding:0 8px}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--forest);color:white;display:grid;place-items:center;font-weight:800;letter-spacing:-.04em}.brand-name{font-weight:800;color:var(--forest);letter-spacing:.01em}.brand-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.course-chip{margin:0 7px;padding:14px;border-radius:14px;background:var(--mint-2);border:1px solid var(--line)}.course-chip small{display:block;color:var(--green);font-size:10px;font-weight:800;letter-spacing:.1em}.course-chip strong{display:block;color:var(--forest);font-size:14px;margin-top:4px}.course-chip span{font-size:12px;color:var(--muted)}
+.nav-label{font-size:10px;font-weight:800;letter-spacing:.12em;color:#8a9a8e;padding:0 12px;margin:0 0 6px}.nav-list{display:grid;gap:5px}.nav-btn{border:0;background:transparent;color:#53675a;border-radius:11px;padding:11px 12px;text-align:left;display:flex;align-items:center;gap:11px;font-weight:650;font-size:13px;transition:.16s}.nav-btn:hover{background:var(--mint-2);color:var(--forest)}.nav-btn.active{background:var(--mint);color:var(--forest);box-shadow:inset 3px 0 var(--green)}.nav-icon{width:20px;text-align:center;color:var(--green);font-size:16px}.side-bottom{margin-top:auto;padding:12px}.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}.progress-track{height:7px;background:var(--mint);border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s}
+.main{min-width:0}.topbar{height:72px;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:5}.crumb{font-size:12px;color:var(--muted)}.crumb strong{color:var(--forest)}.top-actions{display:flex;align-items:center;gap:12px}.search{height:38px;width:min(300px,28vw);background:#f7faf7;border:1px solid var(--line);border-radius:11px;padding:0 12px;color:var(--ink)}.module-tag{border-radius:99px;background:var(--mint);color:var(--green-2);padding:8px 12px;font-size:11px;font-weight:800;letter-spacing:.04em}
+.content{max-width:1220px;padding:34px 38px 68px;margin:0 auto}.eyebrow{color:var(--green);font-size:11px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}.page-title{font-size:30px;line-height:1.2;letter-spacing:-.035em;color:var(--forest);margin:7px 0 8px}.page-sub{color:var(--muted);margin:0 0 24px;max-width:760px}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:20px;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow);overflow:hidden}.hero h1{font-size:39px;line-height:1.08;letter-spacing:-.045em;color:var(--forest);margin:8px 0 14px;max-width:620px}.hero p{color:var(--muted);max-width:560px;margin:0 0 20px}.hero-visual{border-radius:18px;background:var(--mint-2);border:1px solid var(--line);padding:22px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between}.formula{font:700 22px/1.35 Georgia,"Times New Roman",serif;color:var(--forest);letter-spacing:.01em}.formula small{display:block;font:600 12px/1.5 Inter,system-ui,sans-serif;color:var(--muted);letter-spacing:0}.axis{height:90px;position:relative;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:25% 25%;border-radius:10px}.axis:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#78a985}.axis:after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#78a985}.curve{position:absolute;inset:0;width:100%;height:100%}.button-row{display:flex;flex-wrap:wrap;gap:10px}.btn{border:1px solid var(--line);background:white;color:var(--forest);border-radius:11px;padding:10px 14px;font-weight:750;font-size:12px;transition:.16s}.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}.btn.primary{background:var(--forest);border-color:var(--forest);color:white}.btn.soft{background:var(--mint);border-color:var(--mint);color:var(--green-2)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 30px}.stat{background:white;border:1px solid var(--line);border-radius:15px;padding:16px 18px;display:flex;align-items:center;gap:13px}.stat-icon{width:38px;height:38px;border-radius:12px;background:var(--mint);color:var(--green);display:grid;place-items:center;font-weight:900}.stat strong{display:block;color:var(--forest);font-size:17px}.stat span{font-size:11px;color:var(--muted)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:26px 0 12px}.section-head h2{margin:0;color:var(--forest);font-size:18px;letter-spacing:-.02em}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;transition:.16s;cursor:pointer}.tile:hover{border-color:#a8cdb0;box-shadow:var(--shadow);transform:translateY(-2px)}.tile-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.pill{display:inline-flex;align-items:center;border-radius:99px;background:var(--mint);color:var(--green-2);font-size:10px;font-weight:850;padding:5px 9px;letter-spacing:.05em}.tile h3{font-size:15px;color:var(--forest);margin:0 0 7px}.tile p{font-size:12px;color:var(--muted);margin:0}.tile-arrow{color:var(--green);font-size:18px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:19px 20px;box-shadow:0 2px 9px rgba(23,71,47,.025)}.math-card{background:var(--mint-2);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:13px;padding:15px 18px;margin:10px 0 14px;font:500 17px/1.75 Georgia,"Times New Roman",serif;color:#24382c;overflow-wrap:anywhere}.math-card .answer{font-weight:700;color:var(--forest)}.math-line{display:block}.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:18px;align-items:start}.main-col{min-width:0}.right-col{display:grid;gap:13px}.note-card{background:var(--mint-2);border:1px solid var(--line);border-radius:14px;padding:15px}.note-card h3{margin:0 0 8px;color:var(--forest);font-size:13px}.note-card p,.note-card li{font-size:12px;color:var(--muted);margin:0}.note-card ul{padding-left:17px;margin:5px 0 0}.example-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}.example-tab{background:white;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:8px 11px;font-size:11px;font-weight:750}.example-tab.active{background:var(--forest);color:white;border-color:var(--forest)}.example-title-row{display:flex;justify-content:space-between;align-items:center;gap:14px}.example-title-row h2{font-size:19px;color:var(--forest);margin:0}.step-label{font-size:10px;color:var(--green);font-weight:850;letter-spacing:.1em;text-transform:uppercase}.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:15px}.ref-table{width:100%;border-collapse:collapse;font-size:12px}.ref-table th{background:var(--forest);color:white;text-align:left;padding:12px}.ref-table td{padding:12px;border-top:1px solid var(--line);color:var(--ink);vertical-align:top}.ref-table tr:nth-child(even) td{background:#f7fbf8}.ref-table code{font:600 12px Georgia,serif;color:var(--forest)}
+.problem{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:start}.problem-num{width:30px;height:30px;border-radius:10px;background:var(--mint);color:var(--green-2);display:grid;place-items:center;font-weight:850;font-size:12px}.problem h3{margin:0;color:var(--forest);font-size:14px}.problem p{margin:5px 0;color:var(--muted);font-size:12px}.answer-box{grid-column:2/4;margin-top:7px}.status{background:#eef6f0;border-radius:99px;color:var(--green-2);font-size:10px;font-weight:800;padding:5px 9px}.status.done{background:#d9eee0;color:#21613a}.key-card{margin:0 0 12px}.key-card .math-card{margin-bottom:0}.source-callout{border:1px solid #ecdcae;background:#fffaf0;border-radius:13px;padding:13px 15px;color:#705a2b;font-size:12px;margin-top:18px}
+.empty{color:var(--muted);font-size:13px;padding:18px}.mobile-menu{display:none;border:1px solid var(--line);background:white;border-radius:9px;padding:8px 10px;color:var(--forest)}
+@media(max-width:980px){.app{grid-template-columns:210px minmax(0,1fr)}.content{padding:28px 24px 56px}.hero{padding:24px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:minmax(0,1fr) 220px}.topbar{padding:0 24px}}
+@media(max-width:720px){.app{display:block}.sidebar{position:fixed;z-index:10;left:-270px;width:250px;transition:left .2s;box-shadow:var(--shadow)}.sidebar.open{left:0}.mobile-menu{display:inline-block}.topbar{height:62px;padding:0 14px;gap:9px}.crumb{display:none}.search{width:min(210px,42vw)}.content{padding:22px 15px 48px}.hero{grid-template-columns:1fr;padding:20px;gap:14px}.hero h1{font-size:31px}.hero-visual{min-height:200px}.stats{gap:8px}.stat{padding:12px;gap:8px}.stat-icon{width:31px;height:31px}.stat strong{font-size:15px}.stat span{font-size:10px}.grid{grid-template-columns:1fr}.content-grid{grid-template-columns:1fr}.right-col{grid-template-columns:repeat(2,minmax(0,1fr))}.module-tag{display:none}.example-title-row{align-items:start;flex-direction:column}.math-card{font-size:15px;padding:13px;line-height:1.7}.section-head{align-items:start;flex-direction:column}.right-col .note-card:last-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark">M9</div><div><div class="brand-name">Math Studio</div><div class="brand-sub">Differential Equations</div></div></div>
+  <div class="course-chip"><small>MODULE 09</small><strong>Undetermined Coefficients</strong><span>Linear nonhomogeneous ODEs</span></div>
+  <div><div class="nav-label">LEARN</div><nav class="nav-list" aria-label="Main navigation">
+    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>Overview</button>
+    <button class="nav-btn" data-page="concepts"><span class="nav-icon">∑</span>Core concepts</button>
+    <button class="nav-btn" data-page="examples"><span class="nav-icon">ƒ</span>Solved examples <span class="status">7</span></button>
+  </nav></div>
+  <div><div class="nav-label">PRACTICE</div><nav class="nav-list">
+    <button class="nav-btn" data-page="practice"><span class="nav-icon">✎</span>Try This <span class="status">5</span></button>
+    <button class="nav-btn" data-page="answers"><span class="nav-icon">✓</span>Answer key</button>
+  </nav></div>
+  <div class="side-bottom"><div class="progress-label"><span>Lesson progress</span><strong id="progressText">0 / 7</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+</aside>
+<main class="main">
+<header class="topbar"><button class="mobile-menu" id="menuBtn" aria-label="Open navigation">☰</button><div class="crumb"><span>Module 09</span> &nbsp;/&nbsp; <strong id="crumbTitle">Overview</strong></div><div class="top-actions"><input class="search" id="searchBox" type="search" placeholder="Search examples…" aria-label="Search examples"><span class="module-tag">MATH-FIRST • INTERACTIVE</span></div></header>
+<div class="content" id="view"></div>
+</main>
+</div>
+<script>
+const examples=[
+ {id:1,title:'Constant forcing',tag:'MODULE EXAMPLE',equation:'y″ + 3y′ + 2y = 6',summary:'Constant right-hand side',steps:[
+  'm² + 3m + 2 = 0  →  (m + 1)(m + 2) = 0',
+  'y<sub>c</sub> = c<sub>1</sub>e<sup>−x</sup> + c<sub>2</sub>e<sup>−2x</sup>',
+  'y<sub>p</sub> = A; &nbsp; 2A = 6  →  A = 3',
+  '<span class="answer">y = c<sub>1</sub>e<sup>−x</sup> + c<sub>2</sub>e<sup>−2x</sup> + 3</span>'
+ ]},
+ {id:2,title:'Linear forcing',tag:'MODULE EXAMPLE',equation:'y″ + y′ − 6y = 2x',summary:'Linear polynomial right-hand side',steps:[
+  'm² + m − 6 = 0  →  (m + 3)(m − 2) = 0',
+  'y<sub>c</sub> = c<sub>1</sub>e<sup>−3x</sup> + c<sub>2</sub>e<sup>2x</sup>',
+  'y<sub>p</sub> = Ax + B; &nbsp; −6A = 2; &nbsp; A − 6B = 0',
+  'A = −1/3; &nbsp; B = −1/18',
+  '<span class="answer">y = c<sub>1</sub>e<sup>−3x</sup> + c<sub>2</sub>e<sup>2x</sup> − x/3 − 1/18</span>'
+ ]},
+ {id:3,title:'Exponential resonance',tag:'MODULE EXAMPLE',equation:'y″ − 2y′ + y = eˣ',summary:'Repeated characteristic root',steps:[
+  'm² − 2m + 1 = 0  →  (m − 1)² = 0',
+  'y<sub>c</sub> = c<sub>1</sub>eˣ + c<sub>2</sub>xeˣ',
+  'y<sub>p</sub> = Ax²eˣ',
+  '2Aeˣ = eˣ  →  A = 1/2',
+  '<span class="answer">y = c<sub>1</sub>eˣ + c<sub>2</sub>xeˣ + (1/2)x²eˣ</span>'
+ ]},
+ {id:4,title:'Mixed forcing + initial values',tag:'MODULE EXAMPLE',equation:'y″ + y = 4x + 10 sin x',summary:'Polynomial and resonant trigonometric forcing',steps:[
+  'm² + 1 = 0  →  m = ±i',
+  'y<sub>c</sub> = c<sub>1</sub> cos x + c<sub>2</sub> sin x',
+  'y<sub>p</sub> = Ax + B + x(C cos x + D sin x)',
+  'y<sub>p</sub>″ + y<sub>p</sub> = Ax + B + 2D cos x − 2C sin x',
+  'A = 4, &nbsp; B = 0, &nbsp; C = −5, &nbsp; D = 0',
+  'y = c<sub>1</sub> cos x + c<sub>2</sub> sin x + 4x − 5x cos x',
+  'y(π)=0  →  c<sub>1</sub>=9π; &nbsp; y′(π)=2  →  c<sub>2</sub>=7',
+  '<span class="answer">y = 9π cos x + 7 sin x + 4x − 5x cos x</span>'
+ ]},
+ {id:5,title:'Nonresonant exponential',tag:'EXTRA EXAMPLE',equation:'y″ − y′ − 2y = 3e³ˣ',summary:'Exponential forcing without overlap',steps:[
+  'm² − m − 2 = 0  →  (m − 2)(m + 1) = 0',
+  'y<sub>c</sub> = c<sub>1</sub>e<sup>2x</sup> + c<sub>2</sub>e<sup>−x</sup>',
+  'y<sub>p</sub> = Ae<sup>3x</sup>; &nbsp; (9 − 3 − 2)A = 3  →  A = 3/4',
+  '<span class="answer">y = c<sub>1</sub>e<sup>2x</sup> + c<sub>2</sub>e<sup>−x</sup> + (3/4)e<sup>3x</sup></span>'
+ ]},
+ {id:6,title:'Quadratic polynomial forcing',tag:'EXTRA EXAMPLE',equation:'y″ + 4y = x²',summary:'Match x², x, and constant terms',steps:[
+  'm² + 4 = 0  →  m = ±2i',
+  'y<sub>c</sub> = c<sub>1</sub> cos 2x + c<sub>2</sub> sin 2x',
+  'y<sub>p</sub> = Ax² + Bx + C; &nbsp; y<sub>p</sub>′=2Ax+B; &nbsp; y<sub>p</sub>″=2A',
+  '2A + 4(Ax² + Bx + C) = x²',
+  '4A=1; &nbsp; 4B=0; &nbsp; 2A+4C=0',
+  'A=1/4; &nbsp; B=0; &nbsp; C=−1/8',
+  '<span class="answer">y = c<sub>1</sub> cos 2x + c<sub>2</sub> sin 2x + x²/4 − 1/8</span>'
+ ]},
+ {id:7,title:'Exponential-trigonometric resonance',tag:'EXTRA EXAMPLE',equation:'y″ − 2y′ + 2y = eˣ cos x',summary:'Combined exponential and trigonometric resonance',steps:[
+  'm² − 2m + 2 = 0  →  m = 1 ± i',
+  'y<sub>c</sub> = eˣ(c<sub>1</sub> cos x + c<sub>2</sub> sin x)',
+  'y<sub>p</sub> = xeˣ(A cos x + B sin x)',
+  'Let y=eˣu: &nbsp; y″−2y′+2y=eˣ(u″+u)',
+  'u=x(A cos x+B sin x)  →  u″+u=2B cos x−2A sin x',
+  '2B=1; &nbsp; −2A=0  →  A=0, B=1/2',
+  '<span class="answer">y=eˣ(c<sub>1</sub>cos x+c<sub>2</sub>sin x)+(x/2)eˣsin x</span>'
+ ]}
+];
+const practices=[
+ {n:1,q:'y″ − y′ = −3'},
+ {n:2,q:'(D² + 3D + 2)y = 12x²'},
+ {n:3,q:'y″ − 3y′ − 4y = 30e⁴ˣ'},
+ {n:4,q:'(D² + 1)y = cos x'},
+ {n:5,q:'x″ + 4x′ + 5x = 10; &nbsp; x(0)=0, x′(0)=0'}
+];
+const answers=[
+ {n:1,lines:['m(m−1)=0','y<sub>c</sub>=c<sub>1</sub>+c<sub>2</sub>eˣ','y<sub>p</sub>=Ax; &nbsp; −A=−3  →  A=3','<span class="answer">y=c<sub>1</sub>+c<sub>2</sub>eˣ+3x</span>']},
+ {n:2,lines:['m²+3m+2=0  →  m=−1,−2','y<sub>c</sub>=c<sub>1</sub>e<sup>−x</sup>+c<sub>2</sub>e<sup>−2x</sup>','y<sub>p</sub>=Ax²+Bx+C','2A=12; &nbsp; 6A+2B=0; &nbsp; 2A+3B+2C=0','A=6; &nbsp; B=−18; &nbsp; C=21','<span class="answer">y=y<sub>c</sub>+6x²−18x+21</span>']},
+ {n:3,lines:['m²−3m−4=0  →  m=4,−1','y<sub>c</sub>=c<sub>1</sub>e<sup>4x</sup>+c<sub>2</sub>e<sup>−x</sup>','y<sub>p</sub>=Axe<sup>4x</sup>; &nbsp; 5A=30  →  A=6','<span class="answer">y=c<sub>1</sub>e<sup>4x</sup>+c<sub>2</sub>e<sup>−x</sup>+6xe<sup>4x</sup></span>']},
+ {n:4,lines:['m²+1=0  →  m=±i','y<sub>c</sub>=c<sub>1</sub>cos x+c<sub>2</sub>sin x','y<sub>p</sub>=x(A cos x+B sin x)','2B=1; &nbsp; −2A=0  →  A=0, B=1/2','<span class="answer">y=c<sub>1</sub>cos x+c<sub>2</sub>sin x+(x/2)sin x</span>']},
+ {n:5,lines:['m²+4m+5=0  →  m=−2±i','x(t)=e<sup>−2t</sup>(C cos t+D sin t)+2','x(0)=0  →  C=−2','x′(0)=−2C+D=0  →  D=−4','<span class="answer">x(t)=2−2e<sup>−2t</sup>cos t−4e<sup>−2t</sup>sin t</span>']}
+];
+const views={home:'Overview',concepts:'Core concepts',examples:'Solved examples',practice:'Try This',answers:'Answer key'};
+let currentPage='home',currentExample=1,completed=new Set(JSON.parse(localStorage.getItem('m9-completed')||'[]'));
+const view=document.getElementById('view'),crumb=document.getElementById('crumbTitle');
+function progress(){document.getElementById('progressText').textContent=`${completed.size} / 7`;document.getElementById('progressFill').style.width=`${completed.size/7*100}%`;}
+function setPage(page){currentPage=page;crumb.textContent=views[page]||'Overview';document.querySelectorAll('.nav-btn[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('sidebar').classList.remove('open');render();window.scrollTo({top:0,behavior:'smooth'});}
+function goExample(id){currentExample=id;setPage('examples');}
+function mathCard(lines){return `<div class="math-card">${lines.map(x=>`<span class="math-line">${x}</span>`).join('')}</div>`;}
+function home(){return `<div class="eyebrow">Interactive lesson • Module 09</div><section class="hero"><div><div class="pill">DIFFERENTIAL EQUATIONS</div><h1>The Method of<br>Undetermined Coefficients</h1><p>Choose a trial particular solution, check for overlap, solve its coefficients, then combine it with the complementary solution.</p><div class="button-row"><button class="btn primary" onclick="setPage('concepts')">Start lesson <span aria-hidden="true">→</span></button><button class="btn soft" onclick="setPage('examples')">Open solved examples</button></div></div><div class="hero-visual"><div class="formula">L[y] = g(x)<small>the forcing term determines the trial form</small><br>y = y<sub>c</sub> + y<sub>p</sub></div><div class="axis"><svg class="curve" viewBox="0 0 300 90" preserveAspectRatio="none" aria-label="Illustrative forcing curve"><path d="M0 45 C35 10,70 12,105 45 S175 80,210 45 S265 12,300 45" fill="none" stroke="#287448" stroke-width="3"/></svg></div><div class="pill">y<sub>c</sub> + y<sub>p</sub> • GENERAL SOLUTION</div></div></section><div class="stats"><div class="stat"><div class="stat-icon">ƒ</div><div><strong>7</strong><span>solved examples</span></div></div><div class="stat"><div class="stat-icon">✎</div><div><strong>5</strong><span>practice problems</span></div></div><div class="stat"><div class="stat-icon">↗</div><div><strong>${completed.size}/7</strong><span>examples completed</span></div></div></div><div class="section-head"><div><h2>Continue learning</h2><p>Pick a section and jump straight in.</p></div></div><div class="grid"><article class="tile" onclick="setPage('concepts')"><div class="tile-top"><span class="pill">01 • CONCEPTS</span><span class="tile-arrow">→</span></div><h3>Review the structure</h3><p>yc + yp, trial forms, and the overlap rule.</p></article><article class="tile" onclick="setPage('examples')"><div class="tile-top"><span class="pill">02 • SOLVE</span><span class="tile-arrow">→</span></div><h3>Work through examples</h3><p>Four module examples and three extensions.</p></article><article class="tile" onclick="setPage('practice')"><div class="tile-top"><span class="pill">03 • PRACTICE</span><span class="tile-arrow">→</span></div><h3>Try the five problems</h3><p>Attempt each problem, then reveal its answer.</p></article></div><div class="source-callout"><strong>Source note:</strong> The scan has a stray “Evaluate (transform of 1)” title on page 1 and varies between f(x) and g(x). The worked examples follow the module; missing final lines are supplied.</div>`;}
+function concepts(){return `<div class="eyebrow">Reference • Lesson notes</div><h1 class="page-title">Core concepts</h1><p class="page-sub">The compact rules used in every worked example.</p><div class="content-grid"><div class="main-col"><div class="card"><div class="step-label">GENERAL SOLUTION</div>${mathCard(['y = y<sub>c</sub> + y<sub>p</sub>','L[y<sub>c</sub>] = 0','L[y<sub>p</sub>] = g(x)'])}</div><div class="section-head"><div><h2>Trial-form reference</h2><p>Match the forcing family, then check for overlap with yc.</p></div></div><div class="table-wrap"><table class="ref-table"><thead><tr><th>Forcing g(x)</th><th>Trial yp</th><th>Overlap adjustment</th></tr></thead><tbody><tr><td>Constant K</td><td><code>A</code></td><td>multiply by x<sup>s</sup></td></tr><tr><td>Polynomial P<sub>n</sub>(x)</td><td><code>A<sub>n</sub>x<sup>n</sup> + … + A<sub>0</sub></code></td><td>multiply whole trial by x<sup>s</sup></td></tr><tr><td>e<sup>ax</sup></td><td><code>Ae<sup>ax</sup></code></td><td>multiply by x<sup>s</sup></td></tr><tr><td>sin bx or cos bx</td><td><code>A cos bx + B sin bx</code></td><td>multiply by x<sup>s</sup></td></tr><tr><td>e<sup>ax</sup>P<sub>n</sub>(x)</td><td><code>e<sup>ax</sup>(polynomial degree n)</code></td><td>multiply by x<sup>s</sup></td></tr><tr><td>e<sup>ax</sup>sin bx or cos bx</td><td><code>e<sup>ax</sup>(A cos bx+B sin bx)</code></td><td>multiply by x<sup>s</sup></td></tr></tbody></table></div><div class="section-head"><div><h2>Five-part solving pattern</h2></div></div><div class="card">${mathCard(['1. Solve L[y]=0 for y<sub>c</sub>.','2. Identify the forcing family g(x).','3. Choose a trial form y<sub>p</sub>.','4. If it overlaps y<sub>c</sub>, multiply by x until independent.','5. Substitute, solve coefficients, combine; apply initial conditions.'])}</div></div><aside class="right-col"><div class="note-card"><h3>Overlap rule</h3><p>If the assumed trial appears in yc, multiply it by x. For a repeated characteristic root, continue with x², x³, and so on until it is independent.</p></div><div class="note-card"><h3>Example</h3>${mathCard(['(D−1)²y=eˣ','y<sub>c</sub>=c₁eˣ+c₂xeˣ','y<sub>p</sub>=A x²eˣ'])}</div><button class="btn primary" onclick="setPage('examples')">Go to solved examples →</button></aside></div>`;}
+function examplesView(){const ex=examples.find(e=>e.id===currentExample)||examples[0];return `<div class="eyebrow">Solve • Worked examples</div><div class="example-title-row"><div><h1 class="page-title">Solved examples</h1><p class="page-sub" style="margin-bottom:0">Module examples plus three extra patterns.</p></div><span class="pill">${ex.tag}</span></div><div class="example-tabs">${examples.map(e=>`<button class="example-tab ${e.id===ex.id?'active':''}" onclick="goExample(${e.id})">Example ${e.id}</button>`).join('')}</div><div class="content-grid"><div class="main-col"><section class="card"><div class="step-label">EXAMPLE ${String(ex.id).padStart(2,'0')} • ${ex.summary.toUpperCase()}</div><div class="math-card" style="font-size:20px;font-weight:700">${ex.equation}</div>${mathCard(ex.steps)}<div class="button-row"><button class="btn soft" onclick="completeExample(${ex.id})">${completed.has(ex.id)?'✓ Completed':'Mark complete'}</button><button class="btn" onclick="goExample(${ex.id===1?7:ex.id-1})">← Previous</button><button class="btn" onclick="goExample(${ex.id===7?1:ex.id+1})">Next →</button></div></section></div><aside class="right-col"><div class="note-card"><h3>Example library</h3><ul>${examples.map(e=>`<li><a href="#" onclick="goExample(${e.id});return false" style="color:${e.id===ex.id?'#17472f':'#667a6c'};font-weight:${e.id===ex.id?'800':'500'}">${e.id}. ${e.title}</a></li>`).join('')}</ul></div><div class="note-card"><h3>Source labels</h3><p>Examples 1–4 are from Module 9. Examples 5–7 are additional practice examples.</p></div></aside></div>`;}
+function practiceView(){return `<div class="eyebrow">Practice • Try This</div><h1 class="page-title">Try This</h1><p class="page-sub">Solve the five equations first. Reveal each result when you’re ready.</p><div class="grid" style="grid-template-columns:1fr 1fr">${practices.map(p=>`<article class="card problem"><div class="problem-num">${p.n}</div><div><h3>Problem ${p.n}</h3><p class="math-card" style="margin:8px 0;font-size:16px">${p.q}</p></div><button class="btn soft" onclick="toggleAnswer(${p.n})" id="reveal-${p.n}">Reveal answer</button><div class="answer-box" id="answer-${p.n}" hidden>${mathCard(answers[p.n-1].lines)}</div></article>`).join('')}</div><div class="source-callout">Try matching the forcing term to a trial form before differentiating.</div>`;}
+function answersView(){return `<div class="eyebrow">Practice • Answer key</div><h1 class="page-title">Answer key</h1><p class="page-sub">Mathematical solutions to the five module exercises.</p>${answers.map(a=>`<section class="card key-card"><div class="problem"><div class="problem-num">${a.n}</div><div><h3>Try This ${a.n}</h3><p class="math-card" style="margin:7px 0 0;font-size:16px">${practices[a.n-1].q}</p></div><span class="status">SOLUTION</span><div class="answer-box">${mathCard(a.lines)}</div></div></section>`).join('')}`;}
+function render(){const templates={home,concepts,examples:examplesView,practice:practiceView,answers:answersView};view.innerHTML=templates[currentPage]();}
+function completeExample(id){completed.add(id);localStorage.setItem('m9-completed',JSON.stringify([...completed]));progress();render();}
+function toggleAnswer(n){const box=document.getElementById(`answer-${n}`);box.hidden=!box.hidden;document.getElementById(`reveal-${n}`).textContent=box.hidden?'Reveal answer':'Hide answer';}
+document.querySelectorAll('.nav-btn[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+document.getElementById('searchBox').addEventListener('keydown',e=>{if(e.key==='Enter'){const q=e.target.value.trim().toLowerCase();const hit=examples.find(x=>x.title.toLowerCase().includes(q)||x.equation.toLowerCase().includes(q)||String(x.id)===q);if(hit){currentExample=hit.id;setPage('examples')}else if(q.includes('try')||q.includes('practice'))setPage('practice')}});
+progress();render();
+</script>
+</body>
+</html>
